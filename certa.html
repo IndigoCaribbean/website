@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERTA — Bureau d'Études et d'Ingénierie · AMO · MOE · Marchés publics</title>
+<meta name="description" content="CERTA — Bureau d'études et d'ingénierie fondé en 1989. AMO, MOE, marchés publics. Ingénierie de territoire, énergie, numérique. Martinique, Caraïbes, France.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0F2557;
+  --navy-mid:#16306A;
+  --blue:    #1D4ED8;
+  --blue-lt: #3B82F6;
+  --red:     #B91C1C;
+  --red-lt:  #EF4444;
+  --bg:      #F8F7F4;
+  --bg-warm: #F0EEE9;
+  --white:   #FFFFFF;
+  --ink:     #111827;
+  --ink-mid: #374151;
+  --ink-lt:  #6B7280;
+  --border:  #D1D5DB;
+  --border-lt:#E5E7EB;
+  --gold:    #C9A84C;
+  --r:       2px;
+  --mono:    'Share Tech Mono', 'Courier New', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; font-size: 15px; line-height: 1.75; color: var(--ink); background: var(--bg); overflow-x: hidden; }
+
+/* NAV */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  transition: height 0.3s;
+}
+#nav.scrolled { height: 56px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+.nav-back { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-lt); text-decoration: none; transition: color 0.2s; font-family: 'Josefin Sans', sans-serif; }
+.nav-back:hover { color: var(--blue); }
+.nav-back svg { width: 14px; height: 14px; }
+.nav-center { display: flex; align-items: center; gap: 12px; }
+.nav-logo-svg { height: 32px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-family: 'Josefin Sans', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-lt); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--navy); }
+.nav-cta { background: var(--navy) !important; color: #fff !important; padding: 8px 18px; border-radius: var(--r); font-weight: 700 !important; }
+.nav-cta:hover { background: var(--blue) !important; }
+#hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+#hamburger span { display: block; width: 24px; height: 2px; background: var(--ink-mid); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  background: var(--white);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 100px 0 60px;
+  border-bottom: 3px solid var(--navy);
+}
+
+/* Subtle tech grid */
+.tech-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(15,37,87,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,37,87,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+/* Corner marks */
+.corner { position: absolute; width: 24px; height: 24px; z-index: 1; }
+.corner.tl { top: 80px; left: 48px; border-top: 2px solid var(--navy); border-left: 2px solid var(--navy); }
+.corner.tr { top: 80px; right: 48px; border-top: 2px solid var(--navy); border-right: 2px solid var(--navy); }
+.corner.bl { bottom: 24px; left: 48px; border-bottom: 2px solid var(--navy); border-left: 2px solid var(--navy); }
+.corner.br { bottom: 24px; right: 48px; border-bottom: 2px solid var(--navy); border-right: 2px solid var(--navy); }
+
+.hero-inner {
+  max-width: 1120px; margin: 0 auto; width: 100%;
+  padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 440px;
+  gap: 72px; align-items: center;
+  position: relative; z-index: 2;
+}
+
+/* CERTA logo hero — SVG inline faithfully recreated */
+.hero-logo-wrap { text-align: center; margin-bottom: 32px; }
+.certa-logo-svg { width: 280px; height: auto; }
+
+.hero-ref {
+  font-family: var(--mono);
+  font-size: 10px; color: var(--blue);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-ref::before { content: ''; display: block; width: 20px; height: 1px; background: var(--blue); }
+
+.hero h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(30px, 4vw, 46px); font-weight: 700;
+  line-height: 1.1; color: var(--navy);
+  letter-spacing: 0.5px; margin-bottom: 24px;
+}
+.hero h1 em { color: var(--blue); font-style: normal; display: block; }
+.hero-sub { font-size: 16px; color: var(--ink-mid); line-height: 1.85; max-width: 480px; margin-bottom: 36px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 36px; }
+.btn-navy { background: var(--navy); color: #fff; font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px 26px; border-radius: var(--r); text-decoration: none; transition: all 0.2s; display: inline-block; border: none; cursor: pointer; }
+.btn-navy:hover { background: var(--blue); }
+.btn-outline { background: transparent; color: var(--navy); font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 12px 25px; border-radius: var(--r); border: 1.5px solid var(--navy); text-decoration: none; transition: all 0.2s; display: inline-block; }
+.btn-outline:hover { background: var(--navy); color: #fff; }
+
+/* Hero stats */
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.hs-item { background: var(--white); padding: 20px 18px; }
+.hs-val { font-family: 'Josefin Sans', sans-serif; font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 6px; }
+.hs-label { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-lt); }
+
+/* Tags */
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.h-tag { background: var(--bg); border: 1px solid var(--border); padding: 4px 12px; font-size: 11px; color: var(--ink-mid); font-family: 'Josefin Sans', sans-serif; letter-spacing: 0.5px; }
+
+/* SECTIONS */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 88px 48px; }
+.wrap.narrow { max-width: 900px; }
+.sec-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.sec-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--blue); }
+.sec-title { font-family: 'Josefin Sans', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: var(--navy); line-height: 1.2; }
+.sec-title em { color: var(--blue); font-style: normal; }
+.sec-lead { margin-top: 14px; font-size: 15px; color: var(--ink-mid); max-width: 560px; line-height: 1.85; }
+.sec-header { margin-bottom: 52px; }
+
+/* IDENTITÉ — colonne fondateur */
+.identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.founder-block { background: var(--navy); color: #fff; padding: 36px 32px; position: relative; }
+.founder-block::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 0; border-style: solid; border-width: 0 0 24px 24px; border-color: transparent transparent var(--bg) transparent; }
+.founder-rank { font-family: var(--mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.founder-name { font-family: 'Josefin Sans', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.founder-title { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 1px; margin-bottom: 24px; }
+.founder-items { list-style: none; }
+.founder-items li { font-size: 13px; color: rgba(255,255,255,0.72); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; gap: 10px; }
+.founder-items li:last-child { border-bottom: none; }
+.founder-items li::before { content: '›'; color: var(--blue-lt); flex-shrink: 0; }
+
+.identity-content { }
+.identity-content p { font-size: 15px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 16px; }
+.identity-content p strong { color: var(--navy); }
+.since-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); padding: 10px 16px; margin-bottom: 24px; }
+.since-badge .year { font-family: 'Josefin Sans', sans-serif; font-size: 28px; font-weight: 700; color: var(--navy); }
+.since-badge .label { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-lt); line-height: 1.4; }
+.geo-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.geo-tag { background: var(--bg); border: 1px solid var(--border); padding: 6px 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--ink-mid); }
+
+/* DOMAINES */
+.domaines-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); }
+.domaine-card { padding: 32px 28px; border-right: 1px solid var(--border); position: relative; transition: background 0.2s; }
+.domaine-card:last-child { border-right: none; }
+.domaine-card:hover { background: var(--white); }
+.domaine-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--border); transition: background 0.2s; }
+.domaine-card:hover::before { background: var(--navy); }
+.dom-num { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--blue); margin-bottom: 14px; }
+.dom-title { font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; line-height: 1.3; }
+.dom-desc { font-size: 13.5px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 16px; }
+.dom-items { list-style: none; }
+.dom-items li { font-size: 12px; color: var(--ink-lt); padding: 4px 0; border-bottom: 1px solid var(--border-lt); display: flex; gap: 8px; }
+.dom-items li:last-child { border-bottom: none; }
+.dom-items li::before { content: '—'; color: var(--blue); font-size: 10px; flex-shrink: 0; margin-top: 3px; }
+
+/* RÔLE ÉCOSYSTÈME */
+.eco-block { background: var(--navy); padding: 44px 44px; position: relative; overflow: hidden; }
+.eco-block::before { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border: 1px solid rgba(255,255,255,0.05); border-radius: 50%; }
+.eco-eyebrow { font-family: var(--mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.eco-title { font-family: 'Josefin Sans', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+.eco-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 600px; margin-bottom: 32px; }
+.eco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.eco-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px 18px; transition: background 0.2s; }
+.eco-card:hover { background: rgba(255,255,255,0.09); }
+.eco-card-name { font-family: 'Josefin Sans', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.eco-card-role { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+.eco-card-link { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--blue-lt); margin-top: 8px; display: block; text-decoration: none; }
+.eco-card-link:hover { color: #fff; }
+
+/* RÉFÉRENCES */
+.refs-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.refs-table thead tr { background: var(--navy); }
+.refs-table th { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 12px 16px; text-align: left; font-weight: 400; }
+.refs-table td { padding: 12px 16px; border-bottom: 1px solid var(--border-lt); color: var(--ink-mid); vertical-align: top; }
+.refs-table tr:last-child td { border-bottom: none; }
+.refs-table tr:hover td { background: var(--bg); }
+.refs-table td:first-child { font-family: var(--mono); font-size: 11px; color: var(--blue); white-space: nowrap; }
+.refs-table td strong { color: var(--navy); font-weight: 700; }
+.ref-tag { display: inline-block; background: var(--bg); border: 1px solid var(--border); padding: 2px 8px; font-size: 10px; color: var(--ink-lt); font-family: var(--mono); margin-top: 4px; }
+
+/* PROJETS DÉTAILLÉS */
+.projets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.projet-card { background: var(--white); border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.2s; }
+.projet-card:hover { box-shadow: 0 4px 24px rgba(15,37,87,0.1); }
+.projet-head { background: var(--navy); padding: 22px 22px 18px; }
+.projet-ref { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+.projet-name { font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 6px; }
+.projet-client { font-size: 11px; color: rgba(255,255,255,0.5); }
+.projet-body { padding: 20px 22px; }
+.projet-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 16px; }
+.projet-meta { list-style: none; }
+.projet-meta li { font-family: var(--mono); font-size: 10px; color: var(--ink-lt); padding: 5px 0; border-bottom: 1px solid var(--border-lt); display: flex; justify-content: space-between; gap: 8px; }
+.projet-meta li:last-child { border-bottom: none; }
+.projet-meta li span { color: var(--navy); font-weight: 700; }
+.projet-badge { display: inline-block; margin-top: 12px; background: var(--bg); border: 1px solid var(--border); padding: 4px 10px; font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--blue); }
+
+/* CONTACT */
+#contact { background: var(--bg-warm); border-top: 3px solid var(--navy); }
+.contact-grid { display: grid; grid-template-columns: 1fr 400px; gap: 72px; align-items: start; }
+.ci-list { list-style: none; margin-top: 32px; }
+.ci-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.ci-item:last-child { border-bottom: none; }
+.ci-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--white); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.ci-label { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 3px; }
+.ci-value { font-size: 14px; color: var(--ink-mid); }
+.ci-value a { color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+.ci-value a:hover { color: var(--navy); }
+.form-wrap { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--navy); padding: 32px; }
+.f-field { margin-bottom: 16px; }
+.f-field label { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 7px; }
+.f-field input, .f-field textarea, .f-field select { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: 'Lato', sans-serif; font-size: 14px; padding: 11px 13px; outline: none; transition: border-color 0.2s; border-radius: 0; }
+.f-field input:focus, .f-field textarea:focus, .f-field select:focus { border-color: var(--navy); }
+.f-field textarea { min-height: 100px; resize: vertical; }
+#form-ok { display: none; margin-top: 12px; padding: 12px; background: rgba(15,37,87,0.06); border: 1px solid var(--border); color: var(--navy); font-size: 13px; text-align: center; font-family: var(--mono); }
+
+/* FOOTER */
+footer { background: var(--navy); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-name { font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--blue-lt); }
+.footer-legal { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.2); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.hero-logo-wrap { animation: fadeUp 0.6s 0.1s both; }
+.hero-ref   { animation: fadeUp 0.6s 0.2s both; }
+.hero h1    { animation: fadeUp 0.6s 0.3s both; }
+.hero-sub   { animation: fadeUp 0.6s 0.42s both; }
+.hero-actions { animation: fadeUp 0.6s 0.52s both; }
+.hero-tags  { animation: fadeUp 0.6s 0.6s both; }
+.hero-stats { animation: fadeUp 0.6s 0.38s both; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hamburger { display: flex; }
+  .hero-inner, .identity-grid, .domaines-grid, .eco-grid, .projets-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .domaines-grid { border: none; }
+  .domaine-card { border: 1px solid var(--border); border-right: 1px solid var(--border); margin-bottom: 8px; }
+  .wrap { padding: 60px 20px; }
+  footer { padding: 18px 20px; flex-direction: column; align-items: flex-start; }
+  #hero { padding: 100px 0 60px; }
+  .eco-block { padding: 32px 20px; }
+  .corner { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+    indigocaribbean.com
+  </a>
+  <div class="nav-center">
+    <img src="logo_certa.png" alt="CERTA" class="nav-logo-svg">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#domaines">Domaines</a></li>
+    <li><a href="#references">Références</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="tech-grid"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-logo-wrap" style="text-align:left;margin-bottom:28px;"><img src="logo_certa.png" alt="CERTA" style="height:80px;width:auto;"></div>
+
+      <div class="hero-ref">BUREAU D'ÉTUDES ET D'INGÉNIERIE · FONDÉ EN 1989</div>
+      <h1>AMO · MOE<br>Marchés<br><em>publics.</em></h1>
+      <p class="hero-sub">CERTA est le bureau d'études et d'ingénierie de l'écosystème Indigo — la structure habilitée à répondre aux appels d'offres publics, à porter les groupements de maîtrise d'ouvrage et à engager les actes d'assurance requis pour les marchés institutionnels.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-navy">Nous contacter</a>
+        <a href="#references" class="btn-outline">Références →</a>
+      </div>
+      <div class="hero-tags">
+        <span class="h-tag">AMO</span>
+        <span class="h-tag">MOE</span>
+        <span class="h-tag">Marchés publics</span>
+        <span class="h-tag">Énergie & EnR</span>
+        <span class="h-tag">Mobilité</span>
+        <span class="h-tag">Numérique</span>
+        <span class="h-tag">Risques</span>
+        <span class="h-tag">Foncier</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="hero-stats">
+        <div class="hs-item">
+          <div class="hs-val">1989</div>
+          <div class="hs-label">Fondation<br>France hexagonale</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">2001</div>
+          <div class="hs-label">Établissement<br>Martinique</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">37+</div>
+          <div class="hs-label">Années<br>d'expérience</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val">3</div>
+          <div class="hs-label">Territoires<br>actifs</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:16px;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--navy);">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--blue);margin-bottom:8px;">IMPLANTATIONS</div>
+        <div style="font-size:13px;color:var(--ink-mid);line-height:1.6;">
+          France hexagonale — La Roquette-sur-Siagne<br>
+          Martinique — Fort-de-France<br>
+          Guadeloupe — consultant partenaire
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FONDATEUR -->
+<div style="background:var(--white);border-bottom:1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Fondateur & Gérant</div>
+    <h2 class="sec-title">Une trajectoire<br><em>d'exception.</em></h2>
+  </div>
+  <div class="identity-grid">
+
+    <div class="founder-block reveal">
+      <div class="founder-rank">Colonel · Saint-Cyrien · Ingénieur</div>
+      <div class="founder-name">Richard Rosemain</div>
+      <div class="founder-title">Fondateur & Gérant · CERTA · depuis 1989</div>
+      <ul class="founder-items">
+        <li>École Spéciale Militaire de Saint-Cyr (1961–1963)</li>
+        <li>Ingénieur télécom — EAT Montargis · ESTT Pontoise</li>
+        <li>Pilote observateur hélicoptère — ESALAT Dax</li>
+        <li>Direction Générale de l'Armement — Officier de liaison ALAT (1978–1987)</li>
+        <li>Études et développement d'équipements hélicoptère</li>
+        <li>DESS Information & Sécurité</li>
+        <li>Mastère Ingénierie des risques — Transport marchandises dangereuses</li>
+      </ul>
+    </div>
+
+    <div class="identity-content reveal">
+      <div class="since-badge">
+        <div class="year">37</div>
+        <div class="label">ans à la tête<br>du bureau</div>
+      </div>
+      <p>Colonel de carrière, ingénieur des télécommunications et pilote d'hélicoptère, Richard Rosemain a fondé CERTA en <strong>1989</strong> après une carrière militaire au service de la Direction Générale de l'Armement. L'établissement martiniquais a été créé en <strong>2001</strong>, ancrant le bureau dans les territoires caribéens.</p>
+      <p>Cette double culture — <strong>rigueur militaire et ingénierie civile</strong> — fonde l'approche de CERTA : des études menées avec la méthode et la précision des grandes organisations, au service des collectivités et des opérateurs locaux.</p>
+      <p>Le bureau intervient aussi bien sur des projets de défense nationale que sur des aménagements cyclables communaux — c'est cette amplitude qui constitue sa force.</p>
+      <div class="geo-row">
+        <span class="geo-tag">Martinique</span>
+        <span class="geo-tag">Guadeloupe</span>
+        <span class="geo-tag">France hexagonale</span>
+        <span class="geo-tag">Mayotte</span>
+        <span class="geo-tag">Saint-Martin</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- DOMAINES -->
+<div id="domaines" style="background:var(--bg);border-bottom:1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Domaines d'activité</div>
+    <h2 class="sec-title">Trois pôles,<br><em>une ingénierie intégrée.</em></h2>
+    <p class="sec-lead">CERTA couvre l'intégralité du cycle projet — études préalables, AMO, MOE — dans trois domaines complémentaires. La même rigueur de méthode, adaptée à chaque contexte.</p>
+  </div>
+  <div class="domaines-grid reveal">
+
+    <div class="domaine-card">
+      <div class="dom-num">01 · AMO / MOE</div>
+      <div class="dom-title">Ingénierie de territoire & Mobilité</div>
+      <p class="dom-desc">Aménagements urbains, pistes cyclables, plans de déplacement, foncier public, espaces touristiques. De l'étude préalable à la réception des travaux.</p>
+      <ul class="dom-items">
+        <li>Plans locaux de déplacement (PLD)</li>
+        <li>Pistes cyclables et mobilité douce</li>
+        <li>Domaine public maritime (50 Pas)</li>
+        <li>Espaces d'aménagement touristique (EAT)</li>
+        <li>Bassins flottants, marinas, aménagements côtiers</li>
+      </ul>
+    </div>
+
+    <div class="domaine-card">
+      <div class="dom-num">02 · MOE / AMO</div>
+      <div class="dom-title">Énergie & Environnement</div>
+      <p class="dom-desc">Transition énergétique, solaire photovoltaïque, bornes IRVE, audit énergétique, risques naturels et technologiques. Références depuis 2016 en Martinique, Guadeloupe et Mayotte.</p>
+      <ul class="dom-items">
+        <li>Centrales PV en autoconsommation et revente</li>
+        <li>Recharge véhicules électriques (IRVE)</li>
+        <li>Audit et maîtrise de l'énergie (HQE)</li>
+        <li>Prévention risques naturels (DDRM, PAPI, PCS)</li>
+        <li>Protection foudre · Risques NBC</li>
+      </ul>
+    </div>
+
+    <div class="domaine-card">
+      <div class="dom-num">03 · AMO</div>
+      <div class="dom-title">Numérique & Systèmes</div>
+      <p class="dom-desc">Plateformes numériques publiques, dématérialisation, logistique dans les trois dimensions, systèmes d'information géographique, réalité augmentée.</p>
+      <ul class="dom-items">
+        <li>AMO plateformes numériques publiques (eFTI)</li>
+        <li>SIG — exploitation et animation</li>
+        <li>Logistique terrestre, maritime, aérienne</li>
+        <li>Modélisation 3D · CAO · DAO</li>
+        <li>Stratégie de développement territorial</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- RÔLE DANS L'ÉCOSYSTÈME -->
+<div style="background:var(--white);">
+<div class="wrap" style="padding-bottom:0;">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Écosystème Indigo</div>
+    <h2 class="sec-title">Le bras institutionnel<br><em>de l'écosystème.</em></h2>
+    <p class="sec-lead">CERTA est la structure de l'écosystème habilitée à répondre aux appels d'offres publics, à constituer des groupements et à engager les assurances professionnelles requises pour les marchés institutionnels.</p>
+  </div>
+</div>
+<div class="eco-block reveal">
+  <div style="max-width:1120px;margin:0 auto;padding:0 48px;">
+    <div class="eco-eyebrow">CERTA DANS L'ÉCOSYSTÈME INDIGO</div>
+    <div class="eco-title">Quand le projet nécessite un cadre institutionnel, c'est CERTA qui signe.</div>
+    <p class="eco-desc">Les autres structures de l'écosystème — Indigo, Amarelo, Team Cybersecurity — sont des cabinets de conseil et d'opération. CERTA est le bureau d'études certifié, assuré, immatriculé, capable de répondre formellement aux marchés publics, de porter les actes d'engagement et de constituer des groupements d'experts.</p>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <div class="eco-card-name">Indigo</div>
+        <div class="eco-card-role">Digitalisation, ERP Odoo, GAF — CERTA intervient sur les volets AMO numérique des projets publics</div>
+        <a href="digitalisation.html" class="eco-card-link">digitalisation →</a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-card-name">Amarelo</div>
+        <div class="eco-card-role">Énergie & IRVE — CERTA assure la MOE et les dossiers réglementaires des projets EnR sur marchés publics</div>
+        <a href="https://amarelo.fr" target="_blank" rel="noopener" class="eco-card-link">amarelo.fr →</a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-card-name">Team Cybersecurity</div>
+        <div class="eco-card-role">Cybersécurité — CERTA peut porter les réponses AMO numérique et sécurité des systèmes pour les collectivités</div>
+        <a href="cybersecurite.html" class="eco-card-link">cybersécurité →</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PROJETS EN COURS -->
+<div id="projets" style="background:var(--bg);border-top:1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Projets récents</div>
+    <h2 class="sec-title">Trois missions<br><em>en cours.</em></h2>
+    <p class="sec-lead">Des projets concrets, portés avec nos partenaires institutionnels en Martinique.</p>
+  </div>
+  <div class="projets-grid">
+
+    <div class="projet-card reveal">
+      <div class="projet-head">
+        <div class="projet-ref">REF. 2025_SICS80420</div>
+        <div class="projet-name">AMO Plateforme eFTI4all</div>
+        <div class="projet-client">Collectivité Territoriale de Martinique</div>
+      </div>
+      <div class="projet-body">
+        <p class="projet-desc">Mission d'AMO pour la création de la plateforme numérique locale eFTI4all — dématérialisation des documents de transport de marchandises (réglementation européenne eFTI). Groupement conjoint de 6 experts.</p>
+        <ul class="projet-meta">
+          <li>Type <span>AMO Numérique</span></li>
+          <li>Dépôt <span>26 fév. 2026</span></li>
+          <li>Montant <span>38 500 € HT</span></li>
+          <li>Volumétrie <span>55 jours</span></li>
+        </ul>
+        <div class="projet-badge">OFFRE DÉPOSÉE</div>
+      </div>
+    </div>
+
+    <div class="projet-card reveal">
+      <div class="projet-head">
+        <div class="projet-ref">MISSION FONCIÈRE — DIAMANT</div>
+        <div class="projet-name">Dossiers fonciers 50 Pas Géométriques</div>
+        <div class="projet-client">Commune du Diamant</div>
+      </div>
+      <div class="projet-body">
+        <p class="projet-desc">Constitution des dossiers de demandes foncières auprès de la DEAL Martinique sur le Domaine Public Maritime — 30 demandes de cession, 2 cessions onéreuses, 1 AOT. Avenant nov. 2025 en cours.</p>
+        <ul class="projet-meta">
+          <li>Type <span>AMO Foncier</span></li>
+          <li>Démarrage <span>Mars 2024</span></li>
+          <li>Total <span>12 400 € HT</span></li>
+          <li>Statut <span>En cours</span></li>
+        </ul>
+        <div class="projet-badge">MISSION ACTIVE</div>
+      </div>
+    </div>
+
+    <div class="projet-card reveal">
+      <div class="projet-head">
+        <div class="projet-ref">AAP DEAL 2022 &amp; 2023 — LAURÉAT</div>
+        <div class="projet-name">Piste cyclable RD37 — Dizac</div>
+        <div class="projet-client">Commune du Diamant · CTM</div>
+      </div>
+      <div class="projet-body">
+        <p class="projet-desc">AMO et MOA déléguée pour la création et réhabilitation d'aménagements cyclables sur la RD37 et ses sections annexes. Deux AAP DEAL lauréats. DCE MOE émis en novembre 2025.</p>
+        <ul class="projet-meta">
+          <li>Type <span>AMO · MOA déléguée</span></li>
+          <li>Démarrage <span>Janvier 2022</span></li>
+          <li>Financement <span>AAP DEAL + DSIL</span></li>
+          <li>Statut <span>DCE MOE émis</span></li>
+        </ul>
+        <div class="projet-badge">2 APPELS LAURÉATS</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- RÉFÉRENCES CLIENTS -->
+<div id="references" style="background:var(--white);border-top:1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Références clients</div>
+    <h2 class="sec-title">37 ans de missions<br><em>institutionnelles.</em></h2>
+    <p class="sec-lead">Des ministères de la Défense aux communes martiniquaises — CERTA intervient aux deux extrêmes du spectre institutionnel avec la même rigueur.</p>
+  </div>
+  <div class="reveal" style="overflow-x:auto;">
+    <table class="refs-table">
+      <thead>
+        <tr>
+          <th>Période</th>
+          <th>Client</th>
+          <th>Mission</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026</td>
+          <td><strong>CTM</strong></td>
+          <td>AMO Plateforme eFTI4all — dématérialisation transport</td>
+          <td><span class="ref-tag">AMO Numérique</span></td>
+        </tr>
+        <tr>
+          <td>2024–2026</td>
+          <td><strong>Mairie du Diamant</strong></td>
+          <td>Dossiers fonciers DPM — 50 Pas Géométriques</td>
+          <td><span class="ref-tag">AMO Foncier</span></td>
+        </tr>
+        <tr>
+          <td>2022–2026</td>
+          <td><strong>Mairie du Diamant · CTM</strong></td>
+          <td>Piste cyclable RD37 Dizac — AMO, lauréat AAP DEAL 2022 & 2023</td>
+          <td><span class="ref-tag">AMO · MOA déléguée</span></td>
+        </tr>
+        <tr>
+          <td>2023</td>
+          <td><strong>Mairie de Bandrele (Mayotte)</strong></td>
+          <td>MOE Aménagement Musicale Plage avec piscine en mer</td>
+          <td><span class="ref-tag">MOE</span></td>
+        </tr>
+        <tr>
+          <td>2022</td>
+          <td><strong>SAS SAFEGE / SUEZ</strong></td>
+          <td>AMO Faisabilité recharge PV IRVE en autoconsommation</td>
+          <td><span class="ref-tag">AMO Énergie</span></td>
+        </tr>
+        <tr>
+          <td>2021</td>
+          <td><strong>Mairie de Fort-de-France</strong></td>
+          <td>AMO centrales PV toiture 15 sites · AMO transition énergétique</td>
+          <td><span class="ref-tag">AMO Énergie</span></td>
+        </tr>
+        <tr>
+          <td>2021</td>
+          <td><strong>CTM</strong></td>
+          <td>AMO EAT Cherry au Diamant</td>
+          <td><span class="ref-tag">AMO Territoire</span></td>
+        </tr>
+        <tr>
+          <td>2019–2020</td>
+          <td><strong>Mairie de Fort-de-France</strong></td>
+          <td>MOE DCE acquisition bus électriques + recharge PV</td>
+          <td><span class="ref-tag">MOE Mobilité</span></td>
+        </tr>
+        <tr>
+          <td>2018</td>
+          <td><strong>CAESM</strong></td>
+          <td>MOE TEPCV — flotte décarbonée et recharge autoconsommation</td>
+          <td><span class="ref-tag">MOE Énergie</span></td>
+        </tr>
+        <tr>
+          <td>2016</td>
+          <td><strong>Palais des Congrès Madiana</strong></td>
+          <td>MOE Excellence énergétique (climatisation)</td>
+          <td><span class="ref-tag">MOE Énergie</span></td>
+        </tr>
+        <tr>
+          <td>Historique</td>
+          <td><strong>Défense nationale</strong></td>
+          <td>DGA · Armement hélicoptère · Systèmes de communication · Navigation satellite · Simulateurs</td>
+          <td><span class="ref-tag">Études défense</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:24px;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--navy);">
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--blue);margin-bottom:6px;">PRINCIPAUX DONNEURS D'ORDRE</div>
+    <div style="font-size:13px;color:var(--ink-mid);line-height:1.7;">
+      Ministères Défense · Intérieur · Transports · MEDDAAT · DGA · Direction Sécurité Civile · CTM · Communes de Martinique et Guadeloupe · DEAL · ADEME · Conservatoire du Littoral · CAESM · CACEM · CCI Martinique · EADS · Eurocopter · Safran · Thales · Dassault
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+<div class="wrap">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="sec-eyebrow">Contact</div>
+      <h2 class="sec-title">Un projet,<br><em>un interlocuteur.</em></h2>
+      <p class="sec-lead">Appel d'offres, groupement, étude préalable — contactez CERTA pour évaluer la faisabilité de votre projet et les modalités d'intervention.</p>
+      <ul class="ci-list">
+        <li class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:certa@certa.ovh">certa@certa.ovh</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Martinique</div>
+            <div class="ci-value">16, rue des Fleurs – Clairière<br>97200 Fort-de-France</div>
+          </div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">France hexagonale</div>
+            <div class="ci-value">297 Av. du 8 mai<br>06550 La Roquette-sur-Siagne</div>
+          </div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🏢</div>
+          <div>
+            <div class="ci-label">SIRET</div>
+            <div class="ci-value" style="font-family:var(--mono);font-size:12px;">350 214 672 00031 · APE 7112B</div>
+          </div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🌐</div>
+          <div>
+            <div class="ci-label">Écosystème</div>
+            <div class="ci-value"><a href="index.html">indigocaribbean.com</a></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="form-wrap reveal">
+      <form onsubmit="handleSubmit(event)">
+        <div class="f-field">
+          <label>Nom & Prénom</label>
+          <input type="text" name="name" placeholder="Jean Dupont" required>
+        </div>
+        <div class="f-field">
+          <label>Organisation</label>
+          <input type="text" name="org" placeholder="Mairie de Sainte-Anne">
+        </div>
+        <div class="f-field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="j.dupont@mairie.mq" required>
+        </div>
+        <div class="f-field">
+          <label>Type de mission</label>
+          <select name="type">
+            <option value="">Choisissez une option</option>
+            <option>AMO — Assistance à Maîtrise d'Ouvrage</option>
+            <option>MOE — Maîtrise d'Œuvre</option>
+            <option>Réponse à appel d'offres / groupement</option>
+            <option>Étude préalable / faisabilité</option>
+            <option>Énergie & EnR</option>
+            <option>Mobilité & Aménagement</option>
+            <option>Numérique & Systèmes</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Message</label>
+          <textarea name="message" placeholder="Décrivez brièvement votre projet ou votre besoin…"></textarea>
+        </div>
+        <button type="submit" class="btn-navy" style="width:100%;text-align:center;border:none;font-size:11px;letter-spacing:2px;">Envoyer</button>
+        <div id="form-ok">Message transmis — nous revenons vers vous sous 24h.</div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">C.E.R.T.A.</div>
+  <div class="footer-links">
+    <a href="index.html">← Hub Indigo</a>
+    <a href="digitalisation.html">Digitalisation</a>
+    <a href="cybersecurite.html">Cybersécurité</a>
+    <a href="mailto:certa@certa.ovh">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 CERTA SARL · RCS Cannes 350 214 672 · Fort-de-France, Martinique</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 40);
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+function toggleMenu() {
+  const l = document.querySelector('.nav-links');
+  l.style.cssText = l.style.display === 'flex' ? '' : 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,0.98);padding:16px 20px 24px;gap:4px;z-index:400;border-bottom:1px solid var(--border);';
+}
+function handleSubmit(e) {
+  e.preventDefault();
+  const f = e.target;
+  const body = encodeURIComponent(`Nom : ${f.name.value}\nOrg : ${f.org.value}\nEmail : ${f.email.value}\nMission : ${f.type.value}\n\n${f.message.value}`);
+  window.location.href = `mailto:certa@certa.ovh?subject=CERTA%20—%20${encodeURIComponent(f.type.value || 'Contact')}&body=${body}`;
+  document.getElementById('form-ok').style.display = 'block';
+  f.querySelector('button').disabled = true;
+}
+</script>
+</body>
+</html>

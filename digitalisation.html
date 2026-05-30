@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indigo — Digitalisation · Odoo ERP · Martinique & Caraïbes</title>
+<meta name="description" content="Indigo déploie des systèmes d'information adaptés aux spécificités ultramarines — Odoo ERP, AMO numérique, gestion financière externalisée. Phase 0 à 575 € HT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:         #0d1520;
+  --ink-mid:     #162035;
+  --ink-light:   #1e2d4a;
+  --gold:        #C9A84C;
+  --gold-light:  #e8cc82;
+  --gold-dim:    rgba(201,168,76,0.12);
+  --gold-border: rgba(201,168,76,0.22);
+  --bg:          #08100d;
+  --bg-card:     rgba(255,255,255,0.03);
+  --border:      rgba(255,255,255,0.08);
+  --text:        rgba(255,255,255,0.85);
+  --text-muted:  rgba(255,255,255,0.45);
+  --green:       #22c55e;
+  --green-dim:   rgba(34,197,94,0.1);
+  --r:           6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; font-size: 15px; line-height: 1.75; color: var(--text); background: var(--bg); overflow-x: hidden; }
+
+/* NAV */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(8,16,13,0.97); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: height 0.3s;
+}
+#nav.scrolled { height: 56px; }
+.nav-back { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { width: 16px; height: 16px; }
+.nav-logo { font-family: 'Josefin Sans', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 4px; color: var(--text); text-transform: uppercase; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: #08100d !important; padding: 8px 18px; border-radius: var(--r); font-weight: 700 !important; }
+.nav-cta:hover { background: var(--gold-light) !important; }
+#hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+#hamburger span { display: block; width: 24px; height: 2px; background: rgba(255,255,255,0.6); }
+
+/* HERO */
+#hero {
+  min-height: 100vh; background: var(--bg);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 120px 48px 80px;
+}
+.grid-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.glow-hero { position: absolute; top: 5%; right: 0; width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 68%); pointer-events: none; }
+.hero-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; width: 100%; display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: center; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-dim); border: 1px solid var(--gold-border); border-radius: 20px; padding: 5px 14px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 28px; }
+.dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.hero h1 { font-family: 'Josefin Sans', sans-serif; font-size: clamp(32px, 4.5vw, 52px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; }
+.hero h1 em { color: var(--gold); font-style: normal; display: block; }
+.hero-sub { font-size: 16px; color: var(--text-muted); line-height: 1.85; max-width: 480px; margin-bottom: 36px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 36px; }
+.btn-gold { background: var(--gold); color: #08100d; font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px 26px; border-radius: var(--r); text-decoration: none; transition: all 0.2s; display: inline-block; border: none; cursor: pointer; }
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.25); }
+.btn-ghost { background: transparent; color: var(--text-muted); font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 13px 26px; border-radius: var(--r); border: 1px solid var(--border); text-decoration: none; transition: all 0.2s; display: inline-block; }
+.btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.h-tag { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: var(--text-muted); }
+
+/* Profil card */
+.profil-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.profil-card::before { content: ''; display: block; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+.profil-head { padding: 18px 22px; border-bottom: 1px solid var(--border); font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.profil-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 22px; border-bottom: 1px solid var(--border); }
+.profil-item:last-child { border-bottom: none; }
+.p-icon { font-size: 16px; flex-shrink: 0; width: 28px; text-align: center; }
+.p-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; display: block; margin-bottom: 2px; }
+.p-val { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.p-val strong { color: var(--text); }
+
+/* SECTIONS */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 88px 48px; }
+.sec-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.sec-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+.sec-title { font-family: 'Josefin Sans', sans-serif; font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: #fff; line-height: 1.2; }
+.sec-title em { color: var(--gold); font-style: normal; }
+.sec-lead { margin-top: 14px; font-size: 15px; color: var(--text-muted); max-width: 560px; line-height: 1.85; }
+.sec-header { margin-bottom: 52px; }
+
+/* PHASE 0 — hero offer */
+.phase0-block {
+  background: var(--bg-card); border: 1px solid var(--gold-border);
+  border-radius: var(--r); padding: 44px 44px;
+  display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.phase0-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+.phase0-eyebrow { font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.phase0-title { font-family: 'Josefin Sans', sans-serif; font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 14px; line-height: 1.2; }
+.phase0-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 20px; }
+.phase0-items { list-style: none; }
+.phase0-items li { font-size: 13.5px; color: var(--text); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; }
+.phase0-items li:last-child { border-bottom: none; }
+.phase0-items li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.phase0-cta { text-align: center; }
+.phase0-price { font-family: 'Josefin Sans', sans-serif; font-size: 42px; font-weight: 700; color: var(--gold); line-height: 1; }
+.phase0-price small { font-size: 15px; color: var(--text-muted); display: block; margin-top: 4px; font-family: 'Lato', sans-serif; font-weight: 400; letter-spacing: 1px; }
+.phase0-sub { font-size: 12px; color: var(--text-muted); margin: 12px 0 20px; line-height: 1.5; }
+
+/* PARCOURS (roadmap verticale) */
+.roadmap { position: relative; padding-left: 32px; }
+.roadmap::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1)); }
+.rm-step { position: relative; margin-bottom: 40px; }
+.rm-step:last-child { margin-bottom: 0; }
+.rm-dot { position: absolute; left: -32px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; }
+.rm-dot-inner { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.rm-step.active .rm-dot { background: var(--gold); }
+.rm-step.active .rm-dot-inner { background: var(--bg); }
+.rm-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.rm-title { font-family: 'Josefin Sans', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.rm-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+.rm-items { list-style: none; margin-top: 10px; }
+.rm-items li { font-size: 13px; color: var(--text-muted); padding: 4px 0; display: flex; gap: 8px; }
+.rm-items li::before { content: '›'; color: var(--gold); flex-shrink: 0; }
+
+/* PROFILS CLIENTS */
+.profils-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.profil-c { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 28px 24px; transition: border-color 0.2s; }
+.profil-c:hover { border-color: var(--gold-border); }
+.pc-letter { font-family: 'Josefin Sans', sans-serif; font-size: 42px; font-weight: 700; color: var(--gold-dim); line-height: 1; margin-bottom: 14px; }
+.pc-name { font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.pc-ex { font-size: 12px; color: var(--gold); letter-spacing: 1px; margin-bottom: 10px; font-family: 'Josefin Sans', sans-serif; }
+.pc-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
+.pc-signals { list-style: none; }
+.pc-signals li { font-size: 12px; color: var(--text-muted); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 8px; }
+.pc-signals li:last-child { border-bottom: none; }
+.pc-signals li::before { content: '·'; color: var(--gold); }
+
+/* GAF */
+.gaf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.gaf-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 32px 28px; }
+.gaf-card.featured { border-color: var(--gold-border); position: relative; overflow: hidden; }
+.gaf-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+.gaf-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.gaf-title { font-family: 'Josefin Sans', sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.gaf-price { font-family: 'Josefin Sans', sans-serif; font-size: 28px; font-weight: 700; color: var(--gold); margin-bottom: 14px; }
+.gaf-price small { font-size: 13px; color: var(--text-muted); font-family: 'Lato', sans-serif; font-weight: 400; }
+.gaf-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+.gaf-items { list-style: none; }
+.gaf-items li { font-size: 13px; color: var(--text); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; }
+.gaf-items li:last-child { border-bottom: none; }
+.gaf-items li::before { content: '✓'; color: var(--green); font-size: 11px; flex-shrink: 0; margin-top: 3px; }
+.gaf-note { margin-top: 14px; padding: 12px 14px; background: rgba(201,168,76,0.06); border-left: 2px solid var(--gold); border-radius: 0 var(--r) var(--r) 0; font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.gaf-note strong { color: var(--text); }
+
+/* SPÉCIFICITÉS */
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.spec-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 26px 22px; transition: border-color 0.2s; }
+.spec-card:hover { border-color: var(--gold-border); }
+.spec-icon { font-size: 24px; margin-bottom: 14px; }
+.spec-title { font-family: 'Josefin Sans', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.spec-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+/* CONTACT */
+#contact { border-top: 1px solid var(--border); }
+.contact-grid { display: grid; grid-template-columns: 1fr 400px; gap: 72px; align-items: start; }
+.ci-list { list-style: none; margin-top: 32px; }
+.ci-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.ci-item:last-child { border-bottom: none; }
+.ci-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--gold-dim); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.ci-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 3px; }
+.ci-value { font-size: 14px; color: var(--text-muted); }
+.ci-value a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.ci-value a:hover { color: var(--gold); }
+.form-wrap { background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: 10px; padding: 32px; }
+.f-field { margin-bottom: 16px; }
+.f-field label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 7px; }
+.f-field input, .f-field textarea, .f-field select { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--r); color: #fff; font-family: 'Lato', sans-serif; font-size: 14px; padding: 11px 13px; outline: none; transition: border-color 0.2s; }
+.f-field input:focus, .f-field textarea:focus, .f-field select:focus { border-color: var(--gold-border); }
+.f-field textarea { min-height: 100px; resize: vertical; }
+.f-field select option { background: var(--ink); }
+#form-ok { display: none; margin-top: 12px; padding: 12px; background: var(--gold-dim); border: 1px solid var(--gold-border); border-radius: var(--r); color: var(--gold-light); font-size: 13px; text-align: center; }
+
+/* FOOTER */
+footer { background: var(--bg); border-top: 1px solid var(--border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-logo { font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.22); text-transform: uppercase; }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 11px; color: rgba(255,255,255,0.25); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.hero-badge  { animation: fadeUp 0.6s 0.1s both; }
+.hero h1     { animation: fadeUp 0.6s 0.22s both; }
+.hero-sub    { animation: fadeUp 0.6s 0.35s both; }
+.hero-actions { animation: fadeUp 0.6s 0.46s both; }
+.hero-tags   { animation: fadeUp 0.6s 0.55s both; }
+.profil-card { animation: fadeUp 0.6s 0.32s both; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hamburger { display: flex; }
+  .hero-inner, .phase0-block, .gaf-grid, .profils-grid, .spec-grid, .contact-grid { grid-template-columns: 1fr; }
+  .profil-card { display: none; }
+  .wrap { padding: 60px 20px; }
+  footer { padding: 18px 20px; flex-direction: column; align-items: flex-start; }
+  #hero { padding: 100px 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+    indigocaribbean.com
+  </a>
+  <div class="nav-logo">Indigo<span>.</span> Digital</div>
+  <ul class="nav-links">
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#profils">Profils</a></li>
+    <li><a href="#gaf">GAF</a></li>
+    <li><a href="#contact" class="nav-cta">Phase 0 — 575 €</a></li>
+  </ul>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="glow-hero"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><div class="dot"></div>Odoo Partner · Martinique & Caraïbes</div>
+      <h1>Votre système<br>d'information,<br><em>enfin à votre mesure.</em></h1>
+      <p class="hero-sub">Indigo déploie et opère des plateformes Odoo adaptées aux réalités ultramarines — TVA RUP, Chorus Pro, connecteurs bancaires Caraïbes. De l'audit initial à la gestion financière quotidienne.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-gold">Démarrer par la Phase 0 — 575 € HT</a>
+        <a href="#parcours" class="btn-ghost">Voir le parcours →</a>
+      </div>
+      <div class="hero-tags">
+        <span class="h-tag">Odoo ERP</span>
+        <span class="h-tag">TVA RUP</span>
+        <span class="h-tag">Chorus Pro</span>
+        <span class="h-tag">Facturation électronique</span>
+        <span class="h-tag">Multi-sociétés</span>
+        <span class="h-tag">Google Workspace</span>
+        <span class="h-tag">GAF externalisée</span>
+      </div>
+    </div>
+    <div class="profil-card">
+      <div class="profil-head">Spécificités ultramarines maîtrisées</div>
+      <div class="profil-item">
+        <div class="p-icon">🏝️</div>
+        <div><span class="p-label">TVA RUP</span><span class="p-val">Taux DOM, exonérations, régimes spécifiques — configurés nativement dans Odoo</span></div>
+      </div>
+      <div class="profil-item">
+        <div class="p-icon">🏛️</div>
+        <div><span class="p-label">Chorus Pro</span><span class="p-val">Facturation marchés publics — connecteur natif Odoo SH</span></div>
+      </div>
+      <div class="profil-item">
+        <div class="p-icon">🏦</div>
+        <div><span class="p-val">Connecteurs bancaires caribéens — rapprochements automatisés</span></div>
+      </div>
+      <div class="profil-item">
+        <div class="p-icon">📅</div>
+        <div><span class="p-label">Facturation électronique 2027</span><span class="p-val">Odoo est <strong>prêt</strong> — anticipez l'obligation légale dès aujourd'hui</span></div>
+      </div>
+      <div class="profil-item">
+        <div class="p-icon">⚡</div>
+        <div><span class="p-label">Phase 0 à 575 € HT</span><span class="p-val">Diagnostic SI + feuille de route en <strong>une demi-journée</strong></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 0 -->
+<div style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Porte d'entrée</div>
+    <h2 class="sec-title">Commencez par<br><em>voir clair.</em></h2>
+    <p class="sec-lead">Avant tout déploiement, un diagnostic. La Phase 0 est volontairement accessible — elle ne doit jamais être la mission finale.</p>
+  </div>
+  <div class="phase0-block reveal">
+    <div>
+      <div class="phase0-eyebrow">Phase 0 — Diagnostic SI & Feuille de route</div>
+      <div class="phase0-title">Une demi-journée pour cartographier votre situation et décider en connaissance de cause.</div>
+      <p class="phase0-desc">Audit de vos outils en place, identification des contraintes bloquantes, rédaction du cahier des charges plateforme et d'une roadmap en phases avec budgets. Le livrable est immédiat et autonome — transmissible à tout prestataire.</p>
+      <ul class="phase0-items">
+        <li>Rapport d'audit SI — outils, données, flux, contraintes bloquantes</li>
+        <li>Cahier des charges plateforme Odoo</li>
+        <li>Roadmap projet en phases avec budgets indicatifs</li>
+        <li>Choix de version Odoo validé (Online vs SH) et périmètre arrêté</li>
+        <li>Module Socle Marque inclus si besoin (logo, palette, signature email)</li>
+      </ul>
+    </div>
+    <div class="phase0-cta">
+      <div class="phase0-price">575 €<small>HT · demi-journée</small></div>
+      <p class="phase0-sub">Livrable transmis sous 48h.<br>Porte d'entrée systématique avant tout déploiement.</p>
+      <a href="#contact" class="btn-gold">Réserver ma Phase 0</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PARCOURS DÉPLOIEMENT -->
+<div id="parcours" style="border-top: 1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Méthode</div>
+    <h2 class="sec-title">Démarrer petit,<br><em>montrer vite.</em></h2>
+    <p class="sec-lead">Chaque phase a un déclencheur explicite. On ne vend jamais une phase ultérieure avant que la précédente soit stable. Vous voyez des résultats en 4 à 8 semaines.</p>
+  </div>
+  <div class="roadmap reveal">
+
+    <div class="rm-step active">
+      <div class="rm-dot"><div class="rm-dot-inner"></div></div>
+      <div class="rm-label">Phase 0 · Demi-journée · 575 € HT</div>
+      <div class="rm-title">Diagnostic SI & Feuille de route</div>
+      <p class="rm-desc">Audit complet, cahier des charges, roadmap. Le livrable est autonome et transmissible.</p>
+    </div>
+
+    <div class="rm-step">
+      <div class="rm-dot"><div class="rm-dot-inner"></div></div>
+      <div class="rm-label">Phase 1 · 4 à 8 semaines · Sur devis</div>
+      <div class="rm-title">MVP opérationnel</div>
+      <p class="rm-desc">Mise en service du cœur fonctionnel adapté à votre secteur. Votre équipe travaille dans le nouvel outil dès la fin de la phase.</p>
+      <ul class="rm-items">
+        <li>Commerce / négoce : caisse, stocks, achats, comptabilité de base</li>
+        <li>BTP : comptabilité, facturation, situations de chantier</li>
+        <li>Association / réseau : CRM, formulaires, base documentaire, newsletter</li>
+      </ul>
+    </div>
+
+    <div class="rm-step">
+      <div class="rm-dot"><div class="rm-dot-inner"></div></div>
+      <div class="rm-label">Phases suivantes · Progressive</div>
+      <div class="rm-title">Extension & spécialisation</div>
+      <p class="rm-desc">Logistique, livraisons signées, RH, multi-sociétés, Chorus Pro, e-commerce, conformité facturation électronique 2027. Chaque module se déclenche quand la phase précédente est stable.</p>
+    </div>
+
+    <div class="rm-step">
+      <div class="rm-dot"><div class="rm-dot-inner"></div></div>
+      <div class="rm-label">Continu · 1 000 € HT/mois</div>
+      <div class="rm-title">GAF — Gestion financière externalisée</div>
+      <p class="rm-desc">Indigo opère votre plateforme Odoo au quotidien — tenue courante, trésorerie, reporting, interface cabinet comptable.</p>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- PROFILS CLIENTS -->
+<div id="profils" style="border-top: 1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">À qui s'adresse Indigo</div>
+    <h2 class="sec-title">Trois profils,<br><em>trois approches.</em></h2>
+    <p class="sec-lead">Reconnaître votre profil dès la qualification change l'approche et le chiffrage. Chaque profil a ses signaux d'achat typiques.</p>
+  </div>
+  <div class="profils-grid">
+
+    <div class="profil-c reveal">
+      <div class="pc-letter">A</div>
+      <div class="pc-name">Réseau ou association financée</div>
+      <div class="pc-ex">Transition énergétique · 120+ membres</div>
+      <p class="pc-desc">Pilotage d'un programme pluriannuel financé par un tiers (agence nationale, collectivité). Objectifs contractuels chiffrés à tenir, aucun outil de pilotage adapté.</p>
+      <ul class="pc-signals">
+        <li>Pas de CRM, base membres non structurée</li>
+        <li>Reporting manuel vers un financeur</li>
+        <li>Site web géré par un prestataire externe</li>
+        <li>Solution : Odoo back-office + Google Workspace</li>
+      </ul>
+    </div>
+
+    <div class="profil-c reveal">
+      <div class="pc-letter">B</div>
+      <div class="pc-name">PME commerciale</div>
+      <div class="pc-ex">Commerce · Négoce · Distribution</div>
+      <p class="pc-desc">Logiciel vétuste, retraitements Excel chronophages, facturation électronique à horizon 2027. Souvent en contexte ultramarin avec contraintes logistiques d'importation.</p>
+      <ul class="pc-signals">
+        <li>Caisse non traçable, inventaire manuel</li>
+        <li>Litiges de livraison récurrents</li>
+        <li>Pas de messagerie professionnelle</li>
+        <li>Solution : Odoo SH — caisse, stocks, achats, Chorus Pro</li>
+      </ul>
+    </div>
+
+    <div class="profil-c reveal">
+      <div class="pc-letter">C</div>
+      <div class="pc-name">Groupe BTP multi-activités</div>
+      <div class="pc-ex">Terrassement · Voirie · Hôtellerie</div>
+      <p class="pc-desc">ERP existant mal adopté, processus non synchronisés entre les outils, urgence de bascule liée à une échéance comptable ou à une fusion.</p>
+      <ul class="pc-signals">
+        <li>Syndrome "logiciel imposé non utilisé"</li>
+        <li>Multi-sociétés non consolidées</li>
+        <li>Situations de chantier en Excel</li>
+        <li>Solution : Odoo SH multi-sociétés + migration données</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- GAF -->
+<div id="gaf" style="border-top: 1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Gestion financière externalisée</div>
+    <h2 class="sec-title">Un DAF opérationnel<br><em>sans le recruter.</em></h2>
+    <p class="sec-lead">Indigo opère votre plateforme Odoo au quotidien. Pas un cabinet comptable — un opérateur. La frontière est claire.</p>
+  </div>
+  <div class="gaf-grid">
+
+    <div class="gaf-card featured reveal">
+      <div class="gaf-label">GAF opérationnelle mensuelle</div>
+      <div class="gaf-title">Ce qu'Indigo fait</div>
+      <div class="gaf-price">1 000 €<small> HT / mois</small></div>
+      <p class="gaf-desc">Forfait 7,5h/mois — tenue courante 4,5h, réunion mensuelle 2h, support 1h. Heures supplémentaires à 147 € HT/h.</p>
+      <ul class="gaf-items">
+        <li>Import et rapprochement bancaire automatisé</li>
+        <li>Enregistrement des factures fournisseurs (OCR Odoo)</li>
+        <li>Émission et suivi des factures clients</li>
+        <li>Situation de trésorerie mensuelle</li>
+        <li>Dossier cabinet comptable (grand livre, balance, pièces)</li>
+        <li>Tableau de bord financier dirigeant</li>
+        <li>Compte rendu de réunion mensuelle — envoyé le soir même</li>
+      </ul>
+    </div>
+
+    <div class="reveal" style="display:flex;flex-direction:column;gap:20px;">
+      <div class="gaf-card">
+        <div class="gaf-label">Ce qu'Indigo ne fait pas</div>
+        <div class="gaf-title">La frontière cabinet</div>
+        <p class="gaf-desc">La relation contractuelle avec votre cabinet comptable reste directe. Indigo coordonne, le cabinet certifie.</p>
+        <ul class="gaf-items">
+          <li>Comptes annuels et liasses fiscales → cabinet comptable</li>
+          <li>Déclarations TVA, IS, CFE → cabinet comptable</li>
+          <li>Paie et déclarations sociales → cabinet ou spécialiste RH</li>
+          <li>Conseil fiscal et juridique → cabinet ou avocat</li>
+        </ul>
+        <div class="gaf-note"><strong>Condition de mise en œuvre :</strong> la GAF est conditionnée à la transmission régulière des pièces justificatives. Tout retard entraîne un décalage équivalent dans les livrables.</div>
+      </div>
+      <div class="gaf-card">
+        <div class="gaf-label">Modules Odoo couverts</div>
+        <ul class="gaf-items" style="margin-top:0;">
+          <li>Comptabilité — journaux, lettrage, rapprochements</li>
+          <li>Facturation clients — émission, relances, suivi encaissements</li>
+          <li>Achats / fournisseurs — réception, règlements</li>
+          <li>Trésorerie — soldes, prévisionnel</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- SPÉCIFICITÉS ULTRAMARINES -->
+<div style="border-top: 1px solid var(--border);">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Ce qui nous distingue</div>
+    <h2 class="sec-title">Le contexte ultramarin<br><em>est notre spécialité.</em></h2>
+    <p class="sec-lead">Pas depuis un manuel — depuis le terrain. Ces spécificités sont configurées nativement dans nos déploiements.</p>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card reveal">
+      <div class="spec-icon">🏝️</div>
+      <div class="spec-title">TVA RUP & régimes DOM</div>
+      <p class="spec-desc">Taux réduits, exonérations sectorielles, octroi de mer — tous les paramètres de la fiscalité ultramarine configurés dans Odoo dès le déploiement.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">🏛️</div>
+      <div class="spec-title">Chorus Pro natif</div>
+      <p class="spec-desc">Facturation électronique obligatoire pour les marchés publics — le connecteur Chorus Pro est intégré à Odoo SH. Anticipez l'obligation 2027 dès aujourd'hui.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">🏦</div>
+      <div class="spec-title">Connecteurs bancaires Caraïbes</div>
+      <p class="spec-desc">Rapprochements automatiques avec les banques locales. Fini les imports manuels de relevés et les retraitements Excel du vendredi soir.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">📦</div>
+      <div class="spec-title">Logistique d'importation</div>
+      <p class="spec-desc">Suivi des conteneurs, délais de livraison longue distance, gestion des droits et taxes à l'importation — intégrés dans les flux achats Odoo.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">📊</div>
+      <div class="spec-title">Livrables pour dirigeant mobile</div>
+      <p class="spec-desc">Roadmaps HTML responsives, tableaux de bord accessibles depuis le téléphone, compte rendu transmis le soir même — pensés pour des décideurs actifs.</p>
+    </div>
+    <div class="spec-card reveal">
+      <div class="spec-icon">🔗</div>
+      <div class="spec-title">Odoo SH vs Online — le bon choix</div>
+      <p class="spec-desc">Chorus Pro nécessaire ? Module GitHub requis ? Multi-sociétés ? Nous aidons à choisir la version adaptée à votre situation dès la Phase 0.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+<div class="wrap">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="sec-eyebrow">Contact</div>
+      <h2 class="sec-title">Prêt à voir<br><em>où vous en êtes ?</em></h2>
+      <p class="sec-lead" style="color:var(--text-muted);">La Phase 0 à 575 € HT est la bonne première étape si vous n'êtes pas certain de votre besoin. Une demi-journée suffit pour y voir clair — et le livrable vous appartient.</p>
+      <ul class="ci-list">
+        <li class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:mb@indigo.ovh">mb@indigo.ovh</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">📱</div>
+          <div><div class="ci-label">Téléphone</div><div class="ci-value"><a href="tel:+596696712121">+596 696 71 21 21</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🌐</div>
+          <div><div class="ci-label">Plateforme Odoo</div><div class="ci-value"><a href="https://indigo.ovh" target="_blank">indigo.ovh</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🏢</div>
+          <div><div class="ci-label">Cabinet</div><div class="ci-value"><a href="index.html">Indigo SAS — indigocaribbean.com</a></div></div>
+        </li>
+      </ul>
+    </div>
+    <div class="form-wrap reveal">
+      <form onsubmit="handleSubmit(event)">
+        <div class="f-field">
+          <label>Nom & Prénom</label>
+          <input type="text" name="name" placeholder="Marie Dupont" required>
+        </div>
+        <div class="f-field">
+          <label>Organisation</label>
+          <input type="text" name="org" placeholder="SARL Dupont & Associés">
+        </div>
+        <div class="f-field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="marie@dupont.com" required>
+        </div>
+        <div class="f-field">
+          <label>Profil</label>
+          <select name="profil">
+            <option value="">Choisissez votre situation</option>
+            <option>Réseau / association financée (Profil A)</option>
+            <option>PME commerciale / négoce (Profil B)</option>
+            <option>Groupe BTP / multi-activités (Profil C)</option>
+            <option>Autre structure</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Je souhaite</label>
+          <select name="sujet">
+            <option value="">Choisissez une option</option>
+            <option>Réserver une Phase 0 — 575 € HT</option>
+            <option>En savoir plus sur le déploiement Odoo</option>
+            <option>Externaliser ma gestion financière (GAF)</option>
+            <option>Accéder à la plateforme indigo.ovh</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Message</label>
+          <textarea name="message" placeholder="Décrivez brièvement votre situation ou votre outil actuel…"></textarea>
+        </div>
+        <button type="submit" class="btn-gold" style="width:100%;text-align:center;border:none;font-size:11px;">Envoyer</button>
+        <div id="form-ok">Message envoyé — nous revenons vers vous sous 24h.</div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Indigo. Digital</div>
+  <div class="footer-links">
+    <a href="index.html">← Hub Indigo</a>
+    <a href="https://indigo.ovh" target="_blank">Plateforme</a>
+    <a href="cybersecurite.html">Cybersécurité</a>
+    <a href="mailto:mb@indigo.ovh">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 Indigo SAS · Fort-de-France, Martinique</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 40);
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+function toggleMenu() {
+  const l = document.querySelector('.nav-links');
+  l.style.cssText = l.style.display === 'flex' ? '' : 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(8,16,13,0.98);padding:16px 20px 24px;gap:4px;z-index:400;';
+}
+function handleSubmit(e) {
+  e.preventDefault();
+  const f = e.target;
+  const body = encodeURIComponent(`Nom : ${f.name.value}\nOrg : ${f.org.value}\nEmail : ${f.email.value}\nProfil : ${f.profil.value}\nDemande : ${f.sujet.value}\n\n${f.message.value}`);
+  window.location.href = `mailto:mb@indigo.ovh?subject=Digitalisation%20—%20${encodeURIComponent(f.sujet.value || 'Contact')}&body=${body}`;
+  document.getElementById('form-ok').style.display = 'block';
+  f.querySelector('button').disabled = true;
+}
+</script>
+</body>
+</html>

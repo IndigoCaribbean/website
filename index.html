@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indigo — Cabinet Conseil · Martinique & Caraïbes</title>
+<meta name="description" content="Indigo est un cabinet conseil caribéen — transformation numérique, énergie, ingénierie de projet. Conseil, management de transition, partenariat stratégique.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #1B2A4A;
+  --navy-dark:  #111c33;
+  --navy-mid:   #243659;
+  --navy-light: #2e4470;
+  --gold:       #C9A84C;
+  --gold-light: #e8cc82;
+  --gold-pale:  #fdf6e3;
+  --bg:         #F5F4F0;
+  --bg-warm:    #EEECEA;
+  --white:      #ffffff;
+  --text:       #1e1e1c;
+  --text-muted: #5a5a56;
+  --text-light: #8a8a84;
+  --border:     #dedad2;
+  --r:          6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; font-size: 16px; line-height: 1.75; color: var(--text); background: var(--bg); overflow-x: hidden; }
+
+/* NAV */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(17,28,51,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  transition: height 0.3s;
+}
+#nav.scrolled { height: 56px; }
+.nav-logo { font-family: 'Josefin Sans', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 5px; color: #fff; text-transform: uppercase; text-decoration: none; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--navy-dark) !important; padding: 8px 20px; border-radius: var(--r); font-weight: 700 !important; }
+.nav-cta:hover { background: var(--gold-light) !important; }
+#hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+#hamburger span { display: block; width: 24px; height: 2px; background: rgba(255,255,255,0.7); transition: all 0.25s; }
+
+/* HERO */
+#hero {
+  min-height: 100vh; background: var(--navy-dark);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 120px 48px 80px;
+}
+#hero::before { content: ''; position: absolute; top: -120px; right: -80px; width: 600px; height: 600px; border: 1px solid rgba(201,168,76,0.07); border-radius: 50%; }
+#hero::after  { content: ''; position: absolute; bottom: -200px; right: 100px; width: 380px; height: 380px; border: 1px solid rgba(201,168,76,0.04); border-radius: 50%; }
+.hero-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 80px; align-items: center; width: 100%; position: relative; z-index: 1; }
+.hero-eyebrow { display: flex; align-items: center; gap: 12px; font-size: 10px; letter-spacing: 3.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
+.hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+.hero h1 { font-family: 'Josefin Sans', sans-serif; font-size: clamp(34px, 4.5vw, 54px); font-weight: 600; line-height: 1.1; letter-spacing: 0.5px; color: #fff; margin-bottom: 28px; }
+.hero h1 em { color: var(--gold); font-style: normal; display: block; }
+.hero-sub { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.85; max-width: 480px; margin-bottom: 40px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.btn-primary { background: var(--gold); color: var(--navy-dark); font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; border-radius: var(--r); text-decoration: none; transition: all 0.2s; display: inline-block; border: none; cursor: pointer; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+.btn-secondary { background: transparent; color: rgba(255,255,255,0.65); font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; border-radius: var(--r); border: 1px solid rgba(255,255,255,0.18); text-decoration: none; transition: all 0.2s; display: inline-block; }
+.btn-secondary:hover { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+
+/* Hero card */
+.hero-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.14); border-radius: 12px; padding: 36px 32px; position: relative; }
+.hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); border-radius: 12px 12px 0 0; }
+.stat-list { list-style: none; }
+.stat-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.stat-item:last-child { border-bottom: none; }
+.stat-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: rgba(201,168,76,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.stat-label { font-family: 'Josefin Sans', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 3px; }
+.stat-value { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+/* SECTIONS */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 96px 48px; }
+.sec-bg-white { background: var(--white); }
+.sec-bg-warm  { background: var(--bg); }
+.sec-bg-navy  { background: var(--navy-dark); }
+
+.sec-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.sec-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+.sec-title { font-family: 'Josefin Sans', sans-serif; font-size: clamp(26px, 3vw, 36px); font-weight: 600; letter-spacing: 0.3px; color: var(--navy); line-height: 1.2; }
+.sec-title em { color: var(--gold); font-style: normal; }
+.sec-title.light { color: #fff; }
+.sec-lead { margin-top: 16px; font-size: 16px; color: var(--text-muted); max-width: 560px; line-height: 1.85; }
+.sec-lead.light { color: rgba(255,255,255,0.5); }
+.sec-header { margin-bottom: 56px; }
+
+/* MODES D'INTERVENTION */
+.modes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mode-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+.mode-card:hover { box-shadow: 0 10px 36px rgba(27,42,74,0.11); transform: translateY(-3px); }
+.mode-head { background: var(--navy); padding: 28px 28px 22px; position: relative; }
+.mode-head.featured { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); }
+.mode-num { font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
+.mode-name { font-family: 'Josefin Sans', sans-serif; font-size: 19px; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+.mode-duration { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+.mode-body { padding: 26px 28px 30px; }
+.mode-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 20px; }
+.mode-items { list-style: none; }
+.mode-items li { font-size: 13.5px; color: var(--text); padding: 7px 0; border-bottom: 1px solid var(--bg-warm); display: flex; gap: 10px; align-items: flex-start; }
+.mode-items li:last-child { border-bottom: none; }
+.mode-items li::before { content: '→'; color: var(--gold); font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+/* DOMAINES / HUB */
+.domaines-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.domaine-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; display: block; }
+.domaine-card:hover { box-shadow: 0 10px 36px rgba(27,42,74,0.12); transform: translateY(-3px); }
+.domaine-card.full { grid-column: 1 / -1; }
+.domaine-head { background: var(--navy); padding: 28px 30px 22px; display: flex; justify-content: space-between; align-items: flex-start; }
+.domaine-head.energy  { background: linear-gradient(135deg, #1a3a2a 0%, #1e4d38 100%); }
+.domaine-head.infra   { background: linear-gradient(135deg, #2a1f1a 0%, #4d3020 100%); }
+.domaine-head.cyber   { background: linear-gradient(135deg, #0f1a2e 0%, #1a2a4a 100%); }
+.dom-num { font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px; }
+.dom-name { font-family: 'Josefin Sans', sans-serif; font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.dom-sub  { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+.dom-arrow { font-size: 20px; color: var(--gold); opacity: 0.6; transition: opacity 0.2s, transform 0.2s; }
+.domaine-card:hover .dom-arrow { opacity: 1; transform: translateX(4px); }
+.dom-body { padding: 22px 30px 26px; }
+.dom-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+.dom-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.dom-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: var(--text-muted); }
+.dom-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+
+/* PARTICIPATIONS */
+.part-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.part-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 28px 26px; transition: box-shadow 0.2s; }
+.part-card:hover { box-shadow: 0 6px 24px rgba(27,42,74,0.09); }
+.part-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 10px; }
+.part-name { font-family: 'Josefin Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.part-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+.part-soon { opacity: 0.55; }
+.part-badge { display: inline-block; margin-top: 12px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: var(--gold); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; font-family: 'Josefin Sans', sans-serif; }
+
+/* ÉQUIPE */
+.team-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start; }
+.portrait-frame { background: var(--navy); border-radius: 10px; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; position: sticky; top: 80px; }
+.portrait-initials { font-family: 'Josefin Sans', sans-serif; font-size: 64px; font-weight: 700; color: rgba(201,168,76,0.22); letter-spacing: 4px; }
+.portrait-name { font-family: 'Josefin Sans', sans-serif; font-size: 20px; font-weight: 600; color: var(--navy); letter-spacing: 0.3px; margin-top: 18px; }
+.portrait-role { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
+.team-bio p { font-size: 15px; color: var(--text-muted); line-height: 1.85; margin-bottom: 16px; }
+.team-bio p strong { color: var(--navy); }
+.sub-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin: 28px 0 12px; display: block; }
+.exp-list { list-style: none; }
+.exp-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.exp-item:last-child { border-bottom: none; }
+.exp-year { font-family: 'Josefin Sans', sans-serif; font-size: 11px; letter-spacing: 1px; color: var(--gold); min-width: 80px; padding-top: 2px; }
+.exp-role { font-size: 14px; color: var(--text); font-weight: 700; }
+.exp-org  { font-size: 13px; color: var(--text-muted); }
+.domains-mini { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
+.dm-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 12px; }
+.dm-num { font-family: 'Josefin Sans', sans-serif; font-size: 20px; font-weight: 700; color: rgba(201,168,76,0.25); line-height: 1; margin-bottom: 8px; }
+.dm-name { font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.dm-kw { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+.eco-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.eco-tag { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 10px 14px; }
+.eco-tag strong { font-family: 'Josefin Sans', sans-serif; font-size: 13px; color: var(--navy); display: block; }
+.eco-tag span { font-size: 11px; color: var(--text-muted); }
+.lang-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.lang-pill { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 12px; color: var(--text-muted); }
+
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: start; }
+.ci-list { list-style: none; margin-top: 36px; }
+.ci-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.ci-item:last-child { border-bottom: none; }
+.ci-icon { width: 40px; height: 40px; flex-shrink: 0; background: rgba(201,168,76,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+.ci-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 4px; }
+.ci-value { font-size: 14px; color: rgba(255,255,255,0.7); }
+.ci-value a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+.ci-value a:hover { color: var(--gold-light); }
+.form-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.14); border-radius: 12px; padding: 36px; }
+.f-field { margin-bottom: 18px; }
+.f-field label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-family: 'Josefin Sans', sans-serif; margin-bottom: 8px; }
+.f-field input, .f-field textarea, .f-field select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--r); color: #fff; font-family: 'Lato', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color 0.2s; }
+.f-field input:focus, .f-field textarea:focus, .f-field select:focus { border-color: var(--gold); }
+.f-field textarea { min-height: 110px; resize: vertical; }
+.f-field select option { background: var(--navy-dark); }
+#form-ok { display: none; margin-top: 14px; padding: 12px 16px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: var(--r); color: var(--gold-light); font-size: 13px; text-align: center; }
+
+/* FOOTER */
+footer { background: var(--navy-dark); border-top: 1px solid rgba(201,168,76,0.1); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+.footer-logo { font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 4px; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 11px; color: rgba(255,255,255,0.28); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: rgba(255,255,255,0.22); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+.hero-eyebrow { animation: fadeUp 0.7s 0.1s both; }
+.hero h1      { animation: fadeUp 0.7s 0.25s both; }
+.hero-sub     { animation: fadeUp 0.7s 0.4s both; }
+.hero-actions { animation: fadeUp 0.7s 0.52s both; }
+.hero-card    { animation: fadeUp 0.7s 0.35s both; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hamburger { display: flex; }
+  .hero-inner, .modes-grid, .domaines-grid, .part-grid, .team-grid, .contact-grid { grid-template-columns: 1fr; }
+  .domaine-card.full { grid-column: 1; }
+  .hero-card, .portrait-frame { display: none; }
+  .wrap { padding: 64px 20px; }
+  footer { padding: 20px; flex-direction: column; align-items: flex-start; }
+  #hero { padding: 100px 20px 60px; }
+  .domains-mini { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Indigo<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#modes">Modes d'intervention</a></li>
+    <li><a href="#domaines">Domaines</a></li>
+    <li><a href="#participations">Participations</a></li>
+    <li><a href="#equipe">Équipe</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Martinique · Caraïbes · France</div>
+      <h1>Cabinet conseil.<br>Partenaire de<br><em>transformation.</em></h1>
+      <p class="hero-sub">Indigo accompagne les organisations publiques et privées des Caraïbes dans leurs transformations — numérique, énergétique, territoriale. De la mission de conseil jusqu'à la participation au capital.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Démarrer la conversation</a>
+        <a href="#domaines" class="btn-secondary">Nos domaines →</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <ul class="stat-list">
+        <li class="stat-item">
+          <div class="stat-icon">🧭</div>
+          <div>
+            <span class="stat-label">Posture</span>
+            <span class="stat-value">Conseil · Management de transition · Partenaire stratégique</span>
+          </div>
+        </li>
+        <li class="stat-item">
+          <div class="stat-icon">🌍</div>
+          <div>
+            <span class="stat-label">Domaines</span>
+            <span class="stat-value">Digitalisation · Énergie & Durabilité · Ingénierie & Territoires · Cybersécurité</span>
+          </div>
+        </li>
+        <li class="stat-item">
+          <div class="stat-icon">📅</div>
+          <div>
+            <span class="stat-label">Expérience</span>
+            <span class="stat-value">20+ ans en Martinique et dans l'arc caribéen</span>
+          </div>
+        </li>
+        <li class="stat-item">
+          <div class="stat-icon">🤝</div>
+          <div>
+            <span class="stat-label">Participations</span>
+            <span class="stat-value">Prises de participation actives dans des PME et projets early-stage</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODES D'INTERVENTION -->
+<div id="modes" class="sec-bg-white">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Comment nous intervenons</div>
+    <h2 class="sec-title">Trois niveaux<br><em>d'engagement.</em></h2>
+    <p class="sec-lead">Selon votre besoin et votre horizon, Indigo peut intervenir en simple mission de conseil, prendre la responsabilité opérationnelle d'une transition, ou devenir un partenaire à part entière.</p>
+  </div>
+  <div class="modes-grid">
+
+    <div class="mode-card reveal">
+      <div class="mode-head">
+        <div class="mode-num">01</div>
+        <div class="mode-name">Consultant Indépendant</div>
+        <div class="mode-duration">2 à 8 semaines · Diagnostic & recommandations</div>
+      </div>
+      <div class="mode-body">
+        <p class="mode-desc">Vous gardez le volant. Nous apportons le diagnostic, la stratégie et les recommandations. L'engagement est court, le livrable immédiat.</p>
+        <ul class="mode-items">
+          <li>Audit de situation (SI, énergie, organisation)</li>
+          <li>Feuille de route avec jalons et budgets</li>
+          <li>Recommandations actionnables sous 2 à 4 semaines</li>
+          <li>Porte d'entrée : Phase 0 à 575 € HT</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mode-card reveal">
+      <div class="mode-head featured">
+        <div class="mode-num">02</div>
+        <div class="mode-name">Manager de Transition</div>
+        <div class="mode-duration">3 à 18 mois · Responsabilité opérationnelle</div>
+      </div>
+      <div class="mode-body">
+        <p class="mode-desc">Nous prenons la responsabilité opérationnelle réelle. Embedded dans votre organisation, accountable sur les résultats — pas seulement sur les livrables.</p>
+        <ul class="mode-items">
+          <li>Direction de projet ou de fonction en intérim</li>
+          <li>Déploiement et conduite du changement</li>
+          <li>Reporting régulier au dirigeant</li>
+          <li>Transfert de compétences en fin de mission</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mode-card reveal">
+      <div class="mode-head">
+        <div class="mode-num">03</div>
+        <div class="mode-name">Partenaire Stratégique</div>
+        <div class="mode-duration">Long terme · Co-entrepreneur</div>
+      </div>
+      <div class="mode-body">
+        <p class="mode-desc">Pour les projets ambitieux, Indigo peut devenir un partenaire à part entière — equity, relais local de confiance, ancrage caribéen durable.</p>
+        <ul class="mode-items">
+          <li>Prise de participation au capital</li>
+          <li>Rôle opérationnel dans la structure</li>
+          <li>Accès à l'écosystème Indigo (réseau, outils, méthodes)</li>
+          <li>Accompagnement sur la durée</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- DOMAINES / HUB -->
+<div id="domaines" class="sec-bg-warm">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Nos domaines d'expertise</div>
+    <h2 class="sec-title">Quatre pôles,<br><em>une cohérence.</em></h2>
+    <p class="sec-lead">Chaque domaine est porté par une structure dédiée. Indigo en assure la cohérence stratégique et l'ancrage caribéen.</p>
+  </div>
+  <div class="domaines-grid">
+
+    <a href="digitalisation.html" class="domaine-card reveal">
+      <div class="domaine-head">
+        <div>
+          <div class="dom-num">01</div>
+          <div class="dom-name">Digitalisation</div>
+          <div class="dom-sub">digitalisation.html → indigo.ovh</div>
+        </div>
+        <div class="dom-arrow">↗</div>
+      </div>
+      <div class="dom-body">
+        <p class="dom-desc">Déploiement ERP Odoo, audit SI, gestion financière externalisée. De l'atelier Phase 0 à la plateforme complète — adaptée aux spécificités ultramarines (TVA RUP, Chorus Pro).</p>
+        <div class="dom-tags">
+          <span class="dom-tag">Odoo ERP</span>
+          <span class="dom-tag">AMO numérique</span>
+          <span class="dom-tag">GAF</span>
+          <span class="dom-tag">TVA RUP</span>
+          <span class="dom-tag">Chorus Pro</span>
+        </div>
+        <div class="dom-link">Découvrir l'offre →</div>
+      </div>
+    </a>
+
+    <a href="https://amarelo.fr" target="_blank" rel="noopener" class="domaine-card reveal">
+      <div class="domaine-head energy">
+        <div>
+          <div class="dom-num">02</div>
+          <div class="dom-name">Énergie & Durabilité</div>
+          <div class="dom-sub">amarelo.fr</div>
+        </div>
+        <div class="dom-arrow">↗</div>
+      </div>
+      <div class="dom-body">
+        <p class="dom-desc">Transition énergétique, solaire photovoltaïque, bornes IRVE, audit énergétique. Une approche terrain au service de la souveraineté énergétique des territoires caribéens.</p>
+        <div class="dom-tags">
+          <span class="dom-tag">Solaire PV</span>
+          <span class="dom-tag">IRVE</span>
+          <span class="dom-tag">Audit énergétique</span>
+          <span class="dom-tag">EnR</span>
+        </div>
+        <div class="dom-link">Découvrir Amarelo →</div>
+      </div>
+    </a>
+
+    <a href="certa.html" class="domaine-card reveal">
+      <div class="domaine-head infra">
+        <div>
+          <div class="dom-num">03</div>
+          <div class="dom-name">Ingénierie & Territoires</div>
+          <div class="dom-sub">certa.html → certa.ovh</div>
+        </div>
+        <div class="dom-arrow">↗</div>
+      </div>
+      <div class="dom-body">
+        <p class="dom-desc">AMO-MOE, infrastructures, mobilité, marchés publics. L'expertise technique au service des projets de territoire — collectivités, opérateurs, maîtres d'ouvrage.</p>
+        <div class="dom-tags">
+          <span class="dom-tag">AMO · MOE</span>
+          <span class="dom-tag">Infrastructures</span>
+          <span class="dom-tag">Mobilité</span>
+          <span class="dom-tag">Marchés publics</span>
+        </div>
+        <div class="dom-link">Découvrir CERTA →</div>
+      </div>
+    </a>
+
+    <a href="cybersecurite.html" class="domaine-card reveal">
+      <div class="domaine-head cyber">
+        <div>
+          <div class="dom-num">04</div>
+          <div class="dom-name">Cybersécurité</div>
+          <div class="dom-sub">Team Cybersecurity</div>
+        </div>
+        <div class="dom-arrow">↗</div>
+      </div>
+      <div class="dom-body">
+        <p class="dom-desc">Pentest, RSSI externalisé, conformité RGPD/NIS2, sensibilisation. Une offre packagée pour les PME, ETI et collectivités caribéennes — du ticket d'entrée au partenariat long terme.</p>
+        <div class="dom-tags">
+          <span class="dom-tag">Pentest</span>
+          <span class="dom-tag">RSSI externalisé</span>
+          <span class="dom-tag">RGPD · NIS2</span>
+          <span class="dom-tag">Sensibilisation</span>
+        </div>
+        <div class="dom-link">Découvrir Team Cybersecurity →</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+</div>
+
+<!-- PARTICIPATIONS -->
+<div id="participations" class="sec-bg-white">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Participations</div>
+    <h2 class="sec-title">Au-delà du conseil,<br><em>co-entrepreneurs.</em></h2>
+    <p class="sec-lead">Indigo ne se contente pas d'accompagner — nous investissons dans les projets dans lesquels nous croyons, et nous en assumons la responsabilité opérationnelle.</p>
+  </div>
+  <div class="part-grid">
+
+    <div class="part-card reveal">
+      <div class="part-label">Participation active</div>
+      <div class="part-name">Amarelo</div>
+      <p class="part-desc">Transition énergétique et mobilité électrique en Martinique. Solaire PV, bornes IRVE, audit énergétique — pour les particuliers, entreprises et collectivités.</p>
+      <a href="https://amarelo.fr" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;">amarelo.fr →</a>
+    </div>
+
+    <div class="part-card reveal">
+      <div class="part-label">Participation active</div>
+      <div class="part-name">Câble-Toit</div>
+      <p class="part-desc">Solutions d'installation et de connectivité pour l'habitat et les bâtiments professionnels. Un acteur de terrain ancré dans les réalités du BTP caribéen.</p>
+    </div>
+
+    <div class="part-card part-soon reveal">
+      <div class="part-label">En cours de structuration</div>
+      <div class="part-name">Team Cybersecurity</div>
+      <p class="part-desc">Cabinet dédié à la cybersécurité des PME, ETI et collectivités des Caraïbes. Pentest, RSSI externalisé, conformité, veille — lancement 2026.</p>
+      <span class="part-badge">Lancement 2026</span>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ÉQUIPE -->
+<div id="equipe" class="sec-bg-warm">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">L'équipe</div>
+    <h2 class="sec-title">Un interlocuteur,<br><em>un engagement.</em></h2>
+  </div>
+  <div class="team-grid">
+
+    <div class="reveal">
+      <div class="portrait-frame"><div class="portrait-initials">MB</div></div>
+      <div class="portrait-name">Marwane Bejgane</div>
+      <div class="portrait-role">Directeur · Co-fondateur</div>
+    </div>
+
+    <div class="team-bio reveal">
+      <p>Ingénieur diplômé de l'<strong>ESTP</strong>, Marwane Bejgane accompagne depuis <strong>plus de 20 ans</strong> des organisations publiques et privées dans leurs transformations — numérique, énergétique, territoriale. Son parcours couvre les plus grands groupes du BTP et de l'ingénierie (Bouygues, SNCF, Vinci, Altran) avant un ancrage complet en Martinique et dans les Caraïbes.</p>
+      <p>Il a piloté des missions stratégiques à la <strong>Région Martinique</strong> (Direction de l'Environnement et des Politiques Territoriales) et au <strong>Groupe Énergie de Martinique</strong>, avant de structurer un écosystème de cabinets et de participations complémentaires autour d'Indigo.</p>
+
+      <span class="sub-label">Domaines d'expertise</span>
+      <div class="domains-mini">
+        <div class="dm-card">
+          <div class="dm-num">01</div>
+          <div class="dm-name">Digitalisation</div>
+          <div class="dm-kw">Odoo · SI · IA · Automatisation</div>
+        </div>
+        <div class="dm-card">
+          <div class="dm-num">02</div>
+          <div class="dm-name">Énergie & Durabilité</div>
+          <div class="dm-kw">EnR · Solaire · IRVE · ADEME</div>
+        </div>
+        <div class="dm-card">
+          <div class="dm-num">03</div>
+          <div class="dm-name">Mobilité & Territoires</div>
+          <div class="dm-kw">AMO-MOE · Infrastructures · Marchés publics</div>
+        </div>
+      </div>
+
+      <span class="sub-label">Parcours</span>
+      <ul class="exp-list">
+        <li class="exp-item">
+          <div class="exp-year">2015 →</div>
+          <div><div class="exp-role">Co-fondateur & Directeur</div><div class="exp-org">Indigo — Martinique</div></div>
+        </li>
+        <li class="exp-item">
+          <div class="exp-year">2013–2015</div>
+          <div><div class="exp-role">Directeur</div><div class="exp-org">Groupe Énergie de Martinique</div></div>
+        </li>
+        <li class="exp-item">
+          <div class="exp-year">2010–2013</div>
+          <div><div class="exp-role">Directeur Environnement & Politiques Territoriales</div><div class="exp-org">Région Martinique</div></div>
+        </li>
+        <li class="exp-item">
+          <div class="exp-year">Avant</div>
+          <div><div class="exp-role">Ingénieur senior</div><div class="exp-org">Bouygues · SNCF · Vinci · Altran</div></div>
+        </li>
+      </ul>
+
+      <span class="sub-label">Écosystème</span>
+      <div class="eco-row">
+        <div class="eco-tag"><strong>Indigo</strong><span>Digitalisation</span></div>
+        <div class="eco-tag"><strong>Amarelo</strong><span>Énergie & IRVE</span></div>
+        <div class="eco-tag"><strong>CERTA</strong><span>AMO-MOE</span></div>
+      </div>
+
+      <span class="sub-label">Langues</span>
+      <div class="lang-row">
+        <span class="lang-pill">🇫🇷 Français · Créole — Natif</span>
+        <span class="lang-pill">🇬🇧 Anglais — Professionnel</span>
+        <span class="lang-pill">🇪🇸 Espagnol · Portugais — Notions</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="sec-bg-navy">
+<div class="wrap">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="sec-eyebrow">Contact</div>
+      <h2 class="sec-title light">Parlons de votre<br><em>projet.</em></h2>
+      <p class="sec-lead light">Conseil ponctuel, mission de transition ou partenariat — la meilleure façon de démarrer est une conversation. Nous revenons sous 24h.</p>
+      <ul class="ci-list">
+        <li class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:mb@indigo.ovh">mb@indigo.ovh</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">📱</div>
+          <div><div class="ci-label">Téléphone</div><div class="ci-value"><a href="tel:+596696712121">+596 696 71 21 21</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-label">Territoire</div><div class="ci-value">Martinique · Caraïbes · DOM-COM</div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🌐</div>
+          <div><div class="ci-label">Plateforme</div><div class="ci-value"><a href="https://indigo.ovh" target="_blank">indigo.ovh</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">💼</div>
+          <div><div class="ci-label">LinkedIn</div><div class="ci-value"><a href="https://linkedin.com/in/marwanebejgane" target="_blank" rel="noopener">linkedin.com/in/marwanebejgane</a></div></div>
+        </li>
+        <li class="ci-item">
+          <div class="ci-icon">🔧</div>
+          <div><div class="ci-label">Malt</div><div class="ci-value"><a href="https://malt.fr/profile/marwanebejgane" target="_blank" rel="noopener">malt.fr/profile/marwanebejgane</a></div></div>
+        </li>
+      </ul>
+    </div>
+    <div class="form-wrap reveal">
+      <form onsubmit="handleSubmit(event)">
+        <div class="f-field">
+          <label>Nom & Prénom</label>
+          <input type="text" name="name" placeholder="Marie Dupont" required>
+        </div>
+        <div class="f-field">
+          <label>Organisation</label>
+          <input type="text" name="org" placeholder="SARL Dupont & Associés">
+        </div>
+        <div class="f-field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="marie@dupont.com" required>
+        </div>
+        <div class="f-field">
+          <label>Type de mission</label>
+          <select name="type">
+            <option value="">Choisissez une option</option>
+            <option>Conseil ponctuel — Phase 0</option>
+            <option>Management de transition</option>
+            <option>Partenariat stratégique</option>
+            <option>Digitalisation / Odoo</option>
+            <option>Énergie & Durabilité</option>
+            <option>Ingénierie & Territoires</option>
+            <option>Cybersécurité</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Message</label>
+          <textarea name="message" placeholder="Dites-nous en quelques mots où vous en êtes…"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;text-align:center;border:none;font-size:11px;">Envoyer le message</button>
+        <div id="form-ok">Message envoyé — nous revenons vers vous sous 24h.</div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Indigo.</div>
+  <div class="footer-links">
+    <a href="https://indigo.ovh" target="_blank">Plateforme</a>
+    <a href="https://amarelo.fr" target="_blank">Amarelo</a>
+    <a href="https://certa.ovh" target="_blank">CERTA</a>
+    <a href="cybersecurite.html">Cybersécurité</a>
+    <a href="mailto:mb@indigo.ovh">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 Indigo SAS · Fort-de-France, Martinique</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 40);
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+function toggleMenu() {
+  const l = document.querySelector('.nav-links');
+  l.style.cssText = l.style.display === 'flex' ? '' : 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(17,28,51,0.98);padding:16px 20px 24px;gap:4px;z-index:400;';
+}
+function handleSubmit(e) {
+  e.preventDefault();
+  const f = e.target;
+  const body = encodeURIComponent(`Nom : ${f.name.value}\nOrg : ${f.org.value}\nEmail : ${f.email.value}\nMission : ${f.type.value}\n\n${f.message.value}`);
+  window.location.href = `mailto:mb@indigo.ovh?subject=Contact%20indigocaribbean.com&body=${body}`;
+  document.getElementById('form-ok').style.display = 'block';
+  f.querySelector('button').disabled = true;
+}
+</script>
+</body>
+</html>
